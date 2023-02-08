@@ -1,0 +1,70 @@
+/* Reset styles */
+* {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-image: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.8)), url("background.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  height: 200vh;
+}
+
+.button {
+  background-color: #099432; /* Green */
+  border: none;
+  border-radius: 4px;
+  color: rgb(255, 255, 255);
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  transition-duration: 0.4s;
+}
+
+.button:hover {
+  background-color: #2cbe51; /* Green */
+  color: rgb(255, 255, 255);
+}
+
+/* Pokemon Image */
+#pokemon-image-div {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 25%;
+  margin-top: 5%;
+}
+
+#pokemon-image {
+  height: 40vh;
+}
+
+/* Submit button for Pokemon Name */
+#submit-name-button-div {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 3%;
+}
+
+#submit-btn {
+  height: 4vh;
+  width: 20vh;
+}
+
+/* Pokemon Name Input Field */
+#input-name-div {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#pokemon-name {
+  height: 5vh;
+  width: 35vh;
+  font-size: larger;
+  text-align: center;
+}
