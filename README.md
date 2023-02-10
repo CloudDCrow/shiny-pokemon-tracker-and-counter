@@ -1,6 +1,8 @@
 # 🌟 Shiny Pokemon Tracker and Counter 🌟
 Count your shiny hunts and keep track to never forget a caught shiny again!
 
+## [To Website!](https://clouddcrow.github.io/Shiny-Pokemon-Tracker-And-Counter/)
+
 ## How it Works
 1. Search for the Pokemon you want to hunt by its Pokedex number or name.
 2. Start the hunt.
