@@ -10,6 +10,7 @@ body {
   background-repeat: no-repeat;
   background-position: center;
   height: 200vh;
+  position: relative;
 }
 
 @font-face {
@@ -27,7 +28,7 @@ body {
   color: rgb(255, 255, 255);
   text-align: center;
   text-decoration: none;
-  display: inline-block;
+  display: flex;
   font-size: 2vh;
   transition-duration: 0.4s;
   touch-action: manipulation;
@@ -41,14 +42,21 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-top: 3%;
+  margin-top: 2vh;
+}
+
+#submit-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 10px;
 }
 
 .counter-buttons-div {
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-top: 1%;
+  margin-top: 1vh;
 }
 
 #one-counter-btn {
@@ -57,11 +65,15 @@ body {
   justify-content: center;
   margin-right: 10px;
 
-  background-color: rgb(58, 58, 58);
+  background-color: rgb(68, 63, 63);
   background-image: url("images/one_encounter.png");
   background-size: 6vh;
   background-repeat: no-repeat;
   background-position: center;
+}
+
+#one-counter-btn:hover {
+  background-color: rgb(54, 49, 49);
 }
 
 #five-counters-btn {
@@ -71,11 +83,15 @@ body {
   justify-content: center;
   margin-right: 10px;
 
-  background-color: aliceblue;
+  background-color: rgb(240, 248, 255);
   background-image: url("images/five_encounters.png");
   background-repeat: no-repeat;
   background-size: 18vh;
   background-position: center;
+}
+
+#five-counters-btn:hover {
+  background-color: rgb(210, 219, 228);
 }
 
 #remove-counter-btn {
@@ -90,6 +106,21 @@ body {
   background-size: 8vh;
   background-position: center;
 }
+
+#remove-counter-btn:hover {
+  background-color: rgb(182, 21, 21);
+}
+
+#done-btn {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  margin-right: 10px;
+  height: 8vh;
+  width: 35vh;
+  margin-top: 3vh;
+}
+
 
 /* Pokemon Image */
 #pokemon-image-div {
@@ -118,14 +149,14 @@ body {
 }
 
 /* Pokemon Name Input Field */
-#input-name-div {
+#name-input-div {
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 2vh;
 }
 
-#pokemon-name {
+#name-input {
   height: 5vh;
   width: 35vh;
   font-size: larger;
@@ -140,9 +171,8 @@ body {
   margin: auto;
   margin-top: 15vh;
   margin-bottom: 15vh;
-  position: static;
   background-color: rgb(204, 204, 204);
-  border-width: 10px;
+  border-width: 1vh;
   border-style:dashed;
   border-color: #505050;
 }
@@ -151,13 +181,11 @@ body {
 #footer-div {
   display: flex;
   width: 100%;
-  height: 10vh;
-  margin:auto;
+  height: 8vh;
+  position: absolute;
+  bottom: 0;
   align-items: center;
   justify-content: center;
   background-color: rgb(226, 226, 226);
-}
-
-#footer {
   font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }
