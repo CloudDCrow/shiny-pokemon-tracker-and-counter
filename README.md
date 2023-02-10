@@ -1,7 +1,12 @@
-# Shiny-Pokemon-Tracker-And-Counter
-Keeps count of the pokemon encounters while shiny hunting and keeps track of already caught shinies.
+# 🌟 Shiny Pokemon Tracker and Counter 🌟
+Count your shiny hunts and keep track to never forget a caught shiny again!
 
-Type in the pokedex number or name of a pokemon and the shiny sprite of that pokemon will appear.
-You can add +1 for a wild encounter or +5 if you are doing the masuda method.
-Once the shiny pokemon has been caught, the pokemon will be added to the box below, where all of your caught shinies will be stored.
-Next to the shiny pokemon that you caught, there will also be the number of encounters that it took to catch it.
+## How it Works
+1. Search for the Pokemon you want to hunt by its Pokedex number or name.
+2. Start the hunt.
+3. Increase the count by 1 for every wild encounter or by 5 if you're using the Masuda method. 
+4. Click "Done!" once you finally get the shiny.
+5. Store your completed hunts in the box below to see all the shinies you've caught so far, complete with images and encounter count. 
+6. Get ready for your next shiny hunt and repeat the process!
+
+Make shiny hunting an organized and exciting adventure with the Shiny Pokemon Tracker and Counter.
