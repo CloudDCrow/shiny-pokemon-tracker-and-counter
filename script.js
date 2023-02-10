@@ -4,7 +4,6 @@
   const plusFiveBtn = document.getElementById("five-counters-btn");
   const minusOneBtn = document.getElementById("remove-counter-btn");
   const doneBtn = document.getElementById("done-btn");
-  const buttons = document.querySelectorAll('button');
   const pokemonBox = document.querySelector("#pokemon-box-div");
 
   const pokemonNameInput = document.getElementById("name-input");
@@ -16,40 +15,29 @@
   let count = 0;
   let pokemonList = [];
 
-  submitBtn.addEventListener("click", handleSubmitBtnClick);
-  plusOneBtn.addEventListener("click", handlePlusOneBtnClick);
-  plusFiveBtn.addEventListener("click", handlePlusFiveBtnBtnClick);
-  minusOneBtn.addEventListener("click", handleMinusOneBtnClick);
-  doneBtn.addEventListener("click", handleDoneBtnClick);
-  pokemonNameInput.addEventListener("keyup", handlePokemonNameInputKeyUp);
+  addAllEventListeners();
 
   // Load the Pokemon list from the JSON file
   if (pokemonList.length == 0) {
     pokemonList = await (await fetch('pokemon_list.json')).json();
   }
 
+  // Handle functions
   function handleSubmitBtnClick() {
-
     pokemonName = pokemonNameInput.value.toLowerCase().replace(/\s+|-|'|^0+/g, '');
     pokemonIndex = pokemonList.indexOf(pokemonName);
 
-    // If the Pokemon name is found in the list, set the image source
     if (pokemonIndex !== -1) {
       pokemonImage.src = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/shiny/${pokemonIndex + 1}.png`;
       console.log(pokemonName);
-      swapButtons();
+      swapToCountMode();
     } else if (pokemonName > 0 && pokemonName <= 1008) {
       pokemonImage.src = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/shiny/${pokemonName}.png`;
       console.log(pokemonName);
-      swapButtons();
+      swapToCountMode();
     } else {
       pokemonImage.src = 'images/missi.png';
     }
-
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth"
-    });
   }
 
   function handlePlusOneBtnClick() {
@@ -69,37 +57,11 @@
     counter.innerHTML = count;
   }
 
-  function handleDoneBtnClick() {
-    count = 0;
-    counter.innerHTML = count;
+  function handleDoneBtnClick() {    
+    addPokemonToBox(pokemonImage.src);
+    swapToSearchMode();
 
-    for (let button of buttons) {
-      if(button.style.display === "flex") {
-        button.style.display = "none";
-      } else {
-        button.style.display = "flex";
-      }
-    }
-
-    if (pokemonNameInput.style.display === "flex") {
-      pokemonNameInput.style.display = "none";
-    } else {
-      pokemonNameInput.style.display = "flex";
-    }
-    
-    const newPokemonImg = new Image();
-    newPokemonImg.src = pokemonImage.src;
-    newPokemonImg.style.height = "15vh";
     pokemonImage.src = "images/placeholder_pokemon.png";
-
-    pokemonNameInput.value = "";
-
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth"
-    });
-
-    pokemonBox.appendChild(newPokemonImg);
   }
 
   function handlePokemonNameInputKeyUp(event) {
@@ -109,12 +71,62 @@
     }
   }
 
-  function swapButtons() {
+  // Swap the website layout
+  function swapToCountMode() {
     plusOneBtn.style.display = "flex";
     plusFiveBtn.style.display = "flex";
     minusOneBtn.style.display = "flex";
     doneBtn.style.display = "flex";
     submitBtn.style.display = "none";
     pokemonNameInput.style.display = "none";
+
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth"
+    });
+  }
+
+  function swapToSearchMode() {
+    count = 0;
+    counter.innerHTML = count;
+    pokemonNameInput.value = "";
+
+    plusOneBtn.style.display = "none";
+    plusFiveBtn.style.display = "none";
+    minusOneBtn.style.display = "none";
+    doneBtn.style.display = "none";
+    submitBtn.style.display = "flex";
+    pokemonNameInput.style.display = "flex";
+
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth"
+    });
+  }
+  
+  function addPokemonToBox(imageSrc) {
+    const newPokemonImg = new Image();
+    const recordedCounter = document.createElement("div");
+    const newGridItem = document.createElement("div");
+
+    newPokemonImg.src = imageSrc;
+    recordedCounter.innerText = count;
+
+    newPokemonImg.classList.add("pokemon-box-image");
+    recordedCounter.classList.add("pokemon-box-counter");
+    newGridItem.classList.add("grid-item");
+
+    newGridItem.appendChild(newPokemonImg);
+    newGridItem.appendChild(recordedCounter);
+    pokemonBox.appendChild(newGridItem);
+  }
+
+  function addAllEventListeners() {
+    submitBtn.addEventListener("click", handleSubmitBtnClick);
+    plusOneBtn.addEventListener("click", handlePlusOneBtnClick);
+    plusFiveBtn.addEventListener("click", handlePlusFiveBtnBtnClick);
+    minusOneBtn.addEventListener("click", handleMinusOneBtnClick);
+    doneBtn.addEventListener("click", handleDoneBtnClick);
+    pokemonNameInput.addEventListener("keyup", handlePokemonNameInputKeyUp);
   }
 })();

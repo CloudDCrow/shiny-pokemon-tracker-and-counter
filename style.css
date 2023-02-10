@@ -21,22 +21,24 @@ body {
 
 /* Button Styles */
 .button {
+  display: flex;
   background-color: #10b439;
-  border: none;
-  border-radius: 4px;
+  color: rgb(255, 255, 255);
   height: 6vh;
   width: 20vh;
-  color: rgb(255, 255, 255);
+
+  border: none;
+  border-radius: 4px;
   text-align: center;
   text-decoration: none;
-  display: flex;
   font-size: 2vh;
+
   transition-duration: 0.4s;
   touch-action: manipulation;
 }
 
 .button:hover {
-  background-color: #099432;
+  filter:brightness(90%);
 }
 
 #submit-button-div {
@@ -73,10 +75,6 @@ body {
   background-position: center;
 }
 
-#one-counter-btn:hover {
-  background-color: rgb(54, 49, 49);
-}
-
 #five-counters-btn {
   display: none;
   color: black;
@@ -89,10 +87,6 @@ body {
   background-repeat: no-repeat;
   background-size: 18vh;
   background-position: center;
-}
-
-#five-counters-btn:hover {
-  background-color: rgb(210, 219, 228);
 }
 
 #remove-counter-btn {
@@ -108,20 +102,15 @@ body {
   background-position: center;
 }
 
-#remove-counter-btn:hover {
-  background-color: rgb(182, 21, 21);
-}
-
 #done-btn {
   display: none;
   align-items: center;
   justify-content: center;
   margin-right: 10px;
+  margin-top: 1vh;
   height: 8vh;
   width: 35vh;
-  margin-top: 1vh;
 }
-
 
 /* Pokemon Image */
 #pokemon-image-div {
@@ -168,21 +157,35 @@ body {
 #pokemon-box-div {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(20vh, 1fr));
-  grid-template-rows: repeat(auto-fill, minmax(16vh, 1fr));
-  grid-gap: 10px;
+  grid-template-rows: repeat(auto-fill, minmax(25vh, 1fr));
+  grid-gap: 3vh;
+  overflow: auto;
+
   height: 90vh;
   width: 90vw;
-  
+  margin: auto;
+  margin-top: 15vh;
+
   background-image: linear-gradient(rgba(230, 230, 230, 0.9), rgba(228, 228, 228, 0.9)),
                     url("images/wallpaper1.jpg");
   background-size: cover;
   background-repeat: no-repeat;
-  margin: auto;
-  margin-top: 15vh;
   background-color: rgb(230, 227, 227);
+
   border-width: 1vh;
   border-style:groove;
-  border-color: #505050;
+  border-color: #7e89a1;
+
+  text-align: center;
+}
+
+.pokemon-box-image {
+  height: 20vh;
+}
+
+.pokemon-box-counter {
+  font-family: 'Vanilla Caramel', Helvetica, sans-serif;
+  font-size: 5vh;
 }
 
 /* Footer */
