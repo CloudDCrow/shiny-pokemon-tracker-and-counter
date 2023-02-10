@@ -21,16 +21,18 @@
   }
 
   function handleSubmitBtnClick() {
+
     let pokemonName = pokemonNameInput.value.toLowerCase().replace(/\s+|-|'|^0+/g, '');
     let pokemonIndex = pokemonList.indexOf(pokemonName);
 
     // If the Pokemon name is found in the list, set the image source
     if (pokemonIndex !== -1) {
-      swapButtons();
       pokemonImage.src = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/shiny/${pokemonIndex + 1}.png`;
-    } else if (pokemonName > 0 && pokemonName <= 1008) {
       swapButtons();
+      console.log(pokemonName);
+    } else if (pokemonName > 0 && pokemonName <= 1008) {
       pokemonImage.src = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/shiny/${pokemonName}.png`;
+      swapButtons();
       console.log(pokemonName);
     } else {
       pokemonImage.src = 'images/missi.png';
