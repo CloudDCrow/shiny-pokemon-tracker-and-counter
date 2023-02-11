@@ -183,6 +183,10 @@ body {
   height: 20vh;
 }
 
+.pokemon-box-image:hover {
+  cursor: url("images/pokeball_cursor.png"), auto;
+}
+
 .pokemon-box-counter {
   font-family: 'Vanilla Caramel', Helvetica, sans-serif;
   font-size: 5vh;
@@ -193,7 +197,7 @@ body {
   bottom: 0;
   display: flex;
   width: 100%;
-  height: 9vh;
+  height: 7vh;
   position: absolute;
   align-items: center;
   justify-content: center;

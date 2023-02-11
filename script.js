@@ -14,15 +14,16 @@
   let pokemonIndex = 0;
   let count = 0;
   let pokemonList = [];
+  let storedPokemonList = [];
 
-  addAllEventListeners();
-
-  // Load the Pokemon list from the JSON file
   if (pokemonList.length == 0) {
     pokemonList = await (await fetch('pokemon_list.json')).json();
   }
 
-  // Handle functions
+  getStoredPokemon();
+  addAllEventListeners();
+  
+  // Handle Functions
   function handleSubmitBtnClick() {
     pokemonName = pokemonNameInput.value.toLowerCase().replace(/\s+|-|'|^0+/g, '');
     pokemonIndex = pokemonList.indexOf(pokemonName);
@@ -60,8 +61,6 @@
   function handleDoneBtnClick() {    
     addPokemonToBox(pokemonImage.src);
     swapToSearchMode();
-
-    pokemonImage.src = "images/placeholder_pokemon.png";
   }
 
   function handlePokemonNameInputKeyUp(event) {
@@ -71,7 +70,7 @@
     }
   }
 
-  // Swap the website layout
+  // Swap The Website Layout
   function swapToCountMode() {
     plusOneBtn.style.display = "flex";
     plusFiveBtn.style.display = "flex";
@@ -98,12 +97,15 @@
     submitBtn.style.display = "flex";
     pokemonNameInput.style.display = "flex";
 
+    pokemonImage.src = "images/placeholder_pokemon.png";
+
     window.scrollTo({
       top: 0,
       behavior: "smooth"
     });
   }
   
+  //Pokemon Box Functions
   function addPokemonToBox(imageSrc) {
     const newPokemonImg = new Image();
     const recordedCounter = document.createElement("div");
@@ -119,6 +121,43 @@
     newGridItem.appendChild(newPokemonImg);
     newGridItem.appendChild(recordedCounter);
     pokemonBox.appendChild(newGridItem);
+
+    storedPokemonList.push({
+      src: newPokemonImg.src,
+      count: recordedCounter.innerText
+     });    
+
+    localStorage.setItem("storedPokemonList", JSON.stringify(storedPokemonList));
+  }
+
+  function getStoredPokemon() {
+    if(storedPokemonList < localStorage.getItem("storedPokemonList")) {
+      var storedPokemon = JSON.parse(localStorage.getItem("storedPokemonList"));
+    
+      for(let pokemonKey in storedPokemon) {
+        const newPokemonImg = new Image();
+        const recordedCounter = document.createElement("div");
+        const newGridItem = document.createElement("div");
+    
+        newPokemonImg.src = storedPokemon[pokemonKey].src;
+        recordedCounter.innerText = storedPokemon[pokemonKey].count;
+    
+        newPokemonImg.classList.add("pokemon-box-image");
+        recordedCounter.classList.add("pokemon-box-counter");
+        newGridItem.classList.add("grid-item");
+    
+        newGridItem.appendChild(newPokemonImg);
+        newGridItem.appendChild(recordedCounter);
+        pokemonBox.appendChild(newGridItem);
+  
+        storedPokemonList.push({
+          src: newPokemonImg.src,
+          count: recordedCounter.innerText
+         });    
+    
+        localStorage.setItem("storedPokemonList", JSON.stringify(storedPokemonList));
+      }
+    }
   }
 
   function addAllEventListeners() {
