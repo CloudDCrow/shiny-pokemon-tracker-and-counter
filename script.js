@@ -20,6 +20,15 @@
     pokemonList = await (await fetch('pokemon_list.json')).json();
   }
 
+  if (localStorage.getItem("mode") == "count-mode") {
+    swapToCountMode();
+    count = parseInt(localStorage.getItem("count"));
+    pokemonImage.src = localStorage.getItem("current-hunt");
+    counter.innerHTML = count;
+  } else{
+    swapToSearchMode();
+  }
+
   getStoredPokemon();
   addAllEventListeners();
   
@@ -30,12 +39,14 @@
 
     if (pokemonIndex !== -1) {
       pokemonImage.src = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/shiny/${pokemonIndex + 1}.png`;
-      console.log(pokemonName);
       swapToCountMode();
+      localStorage.setItem("current-hunt", pokemonImage.src);
+      localStorage.setItem("count", 0);
     } else if (pokemonName > 0 && pokemonName <= 1008) {
       pokemonImage.src = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/shiny/${pokemonName}.png`;
-      console.log(pokemonName);
       swapToCountMode();
+      localStorage.setItem("current-hunt", pokemonImage.src);
+      localStorage.setItem("count", 0);
     } else {
       pokemonImage.src = 'images/missi.png';
     }
@@ -44,11 +55,13 @@
   function handlePlusOneBtnClick() {
     count += 1;
     counter.innerHTML = count;
+    localStorage.setItem("count", count);
   }
 
   function handlePlusFiveBtnBtnClick() {
     count += 5;
     counter.innerHTML = count;
+    localStorage.setItem("count", count);
   }
 
   function handleMinusOneBtnClick() {
@@ -56,11 +69,13 @@
       count -= 1;
     }
     counter.innerHTML = count;
+    localStorage.setItem("count", count);
   }
 
   function handleDoneBtnClick() {    
     addPokemonToBox(pokemonImage.src);
     swapToSearchMode();
+    localStorage.setItem("count", 0);
   }
 
   function handlePokemonNameInputKeyUp(event) {
@@ -83,6 +98,8 @@
       top: 0,
       behavior: "smooth"
     });
+
+    localStorage.setItem("mode", "count-mode");
   }
 
   function swapToSearchMode() {
@@ -103,6 +120,8 @@
       top: 0,
       behavior: "smooth"
     });
+
+    localStorage.setItem("mode", "search-mode");
   }
   
   //Pokemon Box Functions
