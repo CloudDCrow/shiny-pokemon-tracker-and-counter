@@ -4,6 +4,7 @@
   const plusFiveBtn = document.getElementById("five-counters-btn");
   const minusOneBtn = document.getElementById("remove-counter-btn");
   const doneBtn = document.getElementById("done-btn");
+  const changeWallpaperBtn = document.getElementById("change-wallpaper-btn");
   const pokemonBox = document.querySelector("#pokemon-box-div");
 
   const pokemonNameInput = document.getElementById("name-input");
@@ -13,8 +14,12 @@
   let pokemonName = "";
   let pokemonIndex = 0;
   let count = 0;
+  let currentWallpaper = 0;
   let pokemonList = [];
   let storedPokemonList = [];
+  const wallpaperList = ["linear-gradient(rgba(230, 230, 230, 0.9), rgba(228, 228, 228, 0.9)), url('images/wallpapers/wall.jpg')",
+                          "url('images/wallpapers/clouds.jpg')",
+                          "linear-gradient(rgba(230, 230, 230, 0.6), rgba(228, 228, 228, 0.6)), url('images/wallpapers/desert.jpg')"];
 
   if (pokemonList.length == 0) {
     pokemonList = await (await fetch('pokemon_list.json')).json();
@@ -76,6 +81,16 @@
     addPokemonToBox(pokemonImage.src);
     swapToSearchMode();
     localStorage.setItem("count", 0);
+  }
+
+  function handleChangeWallpaperBtnClick() {
+    currentWallpaper += 1;
+
+    if(currentWallpaper > 2) {
+      currentWallpaper = 0;
+    }
+
+    pokemonBox.style.backgroundImage = wallpaperList[currentWallpaper];
   }
 
   function handlePokemonNameInputKeyUp(event) {
@@ -185,6 +200,7 @@
     plusFiveBtn.addEventListener("click", handlePlusFiveBtnBtnClick);
     minusOneBtn.addEventListener("click", handleMinusOneBtnClick);
     doneBtn.addEventListener("click", handleDoneBtnClick);
+    changeWallpaperBtn.addEventListener("click", handleChangeWallpaperBtnClick);
     pokemonNameInput.addEventListener("keyup", handlePokemonNameInputKeyUp);
   }
 })();
