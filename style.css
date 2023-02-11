@@ -168,8 +168,6 @@ body {
   margin: auto;
   margin-top: 15vh;
 
-  background-image: linear-gradient(rgba(230, 230, 230, 0.9), rgba(228, 228, 228, 0.9)),
-                    url("images/wallpapers/wall.jpg");
   background-size: cover;
   background-repeat: no-repeat;
   background-color: rgb(230, 227, 227);

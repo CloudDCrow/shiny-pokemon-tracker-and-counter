@@ -6,6 +6,7 @@
   const doneBtn = document.getElementById("done-btn");
   const changeWallpaperBtn = document.getElementById("change-wallpaper-btn");
   const pokemonBox = document.querySelector("#pokemon-box-div");
+  let boxEncounters = document.getElementsByClassName("pokemon-box-counter");
 
   const pokemonNameInput = document.getElementById("name-input");
   const pokemonImage = document.getElementById("pokemon-image");
@@ -15,11 +16,14 @@
   let pokemonIndex = 0;
   let count = 0;
   let currentWallpaper = 0;
-  let pokemonList = [];
-  let storedPokemonList = [];
-  const wallpaperList = ["linear-gradient(rgba(230, 230, 230, 0.9), rgba(228, 228, 228, 0.9)), url('images/wallpapers/wall.jpg')",
-                          "url('images/wallpapers/clouds.jpg')",
-                          "linear-gradient(rgba(230, 230, 230, 0.6), rgba(228, 228, 228, 0.6)), url('images/wallpapers/desert.jpg')"];
+  var pokemonList = [];
+  var storedPokemonList = [];
+  var wallpaperList = ["linear-gradient(rgba(230, 230, 230, 0.9), rgba(228, 228, 228, 0.9)), url('images/wallpapers/wall.jpg')",
+                        "url('images/wallpapers/clouds.jpg')",
+                        "url('images/wallpapers/leaves.jpg')",
+                        "linear-gradient(rgba(230, 230, 230, 0.6), rgba(228, 228, 228, 0.6)), url('images/wallpapers/desert.jpg')",
+                        "url('images/wallpapers/cosmos.jpg')",
+                      ];
 
   if (pokemonList.length == 0) {
     pokemonList = await (await fetch('pokemon_list.json')).json();
@@ -35,6 +39,7 @@
   }
 
   getStoredPokemon();
+  changeWallpaper();
   addAllEventListeners();
   
   // Handle Functions
@@ -80,18 +85,19 @@
   function handleDoneBtnClick() {    
     addPokemonToBox(pokemonImage.src);
     swapToSearchMode();
+    changeWallpaper();
     localStorage.setItem("count", 0);
   }
 
   function handleChangeWallpaperBtnClick() {
     currentWallpaper += 1;
-
-    if(currentWallpaper > 2) {
+    if(currentWallpaper > 4) {
       currentWallpaper = 0;
     }
+    localStorage.setItem("wallpaper", currentWallpaper);
 
-    pokemonBox.style.backgroundImage = wallpaperList[currentWallpaper];
-  }
+    changeWallpaper();
+}
 
   function handlePokemonNameInputKeyUp(event) {
     if (event.keyCode === 13) {
@@ -192,6 +198,24 @@
         localStorage.setItem("storedPokemonList", JSON.stringify(storedPokemonList));
       }
     }
+  }
+
+  function changeWallpaper() {
+    if (localStorage.getItem("wallpaper") !== null) {
+      currentWallpaper = parseInt(localStorage.getItem("wallpaper"));
+    }
+         
+    if(currentWallpaper == 2 || currentWallpaper == 4){
+      for (let i = 0; i < boxEncounters.length; i++) {
+        boxEncounters[i].style.color = "white";
+     } 
+    } else {
+      for (let i = 0; i < boxEncounters.length; i++) {
+        boxEncounters[i].style.color = "black";
+     }
+    }
+
+    pokemonBox.style.backgroundImage = wallpaperList[currentWallpaper];
   }
 
   function addAllEventListeners() {
