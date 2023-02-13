@@ -34,6 +34,7 @@ body {
   text-align: center;
   font-size: 2vh;
 
+  cursor:pointer;
   transition-duration: 0.4s;
   touch-action: manipulation;
 }
@@ -102,9 +103,25 @@ body {
   background-size: 8vh;
   background-position: center;
 
-  height: 5vh;
-  width: 5vh;
-  border-radius: 50%;
+  position: absolute;
+  right: 0;
+  top: 0;
+  height: 6vh;
+  width: 6vh;
+  max-height: 60px;
+  max-width: 60px;
+  border-radius: 10px;
+}
+
+.remove-grid-btn {
+  background-color: #d42d2d;
+
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 6vh;
+  width: 30vh;
+  border-radius: 10px;
 }
 
 #change-wallpaper-btn {
@@ -195,19 +212,34 @@ body {
 
 /* Popup and Overlay */
 .popup {
+  display: flex;
+  flex-direction: column;
+  background-color: #ffffff;
+  background-image: linear-gradient(rgba(230, 230, 230, 0.9), rgba(228, 228, 228, 0.7)), url("images/background-popup.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position:bottom;
+
   position: fixed;
-  height: 80%;
-  width: 80%;
+  height: 60%;
+  width: 60%;
   max-height: 400px;
   max-width: 600px;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  background-color: white;
   padding: 20px;
+
+  font-weight:200;
   border-radius: 10px;
   box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.2);
-  display: flex;
+}
+
+.popup-content {
+  text-align: center;
+  font-size: 3vh;
+  margin: auto;
+  padding: 20px;
 }
 
 .overlay {

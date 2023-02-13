@@ -97,7 +97,7 @@
     localStorage.setItem("wallpaper", currentWallpaper);
 
     changeWallpaper();
-}
+  }
 
   function handlePokemonNameInputKeyUp(event) {
     if (event.keyCode === 13) {
@@ -160,7 +160,7 @@
 
 
     newPokemonImg.addEventListener("click", function() {
-      popupWindow(recordedCounter.innerText);
+      popupWindow(newPokemonImg, recordedCounter,newGridItem);
     });
 
     newGridItem.appendChild(newPokemonImg);
@@ -188,7 +188,7 @@
         recordedCounter.innerText = storedPokemon[pokemonKey].count;
 
         newPokemonImg.addEventListener("click", function() {
-          popupWindow(storedPokemon[pokemonKey].count);
+          popupWindow(newPokemonImg, recordedCounter, newGridItem);
           console.log("ok");
         });
     
@@ -228,25 +228,47 @@
     pokemonBox.style.backgroundImage = wallpaperList[currentWallpaper];
   }
 
-  function popupWindow(count) {
+  function popupWindow(imageInGrid, countInGrid, gridItem) {
     const overlay = document.createElement("div");
     const popup = document.createElement("div");
     const closeButton = document.createElement("button");
+    const removeGridButton = document.createElement("button");
     const body = document.querySelector("body");
+    const popupContent = document.createElement("div");
 
-    popup.innerHTML = count;
+    popupContent.innerHTML = "Congratulations!" + " You got it in <b>" + countInGrid.innerHTML + "</b> encounters.";
+    removeGridButton.innerHTML = "Delete"
 
     overlay.classList.add("overlay");
     popup.classList.add("popup");
+    popupContent.classList.add("popup-content");
     closeButton.classList.add("button","close-popup-btn");
+    removeGridButton.classList.add("button", "remove-grid-btn");
 
     closeButton.addEventListener("click", function() {
       popup.remove();
       overlay.remove();
     });
 
+    removeGridButton.addEventListener("click", function() {
+      gridItem.remove();
+      console.log(storedPokemonList.length);
+    
+      let indexToRemove = storedPokemonList.findIndex(item => {
+        return item.src === imageInGrid.src && item.count === countInGrid.innerText;
+      });
+    
+      storedPokemonList.splice(indexToRemove, 1);
+      localStorage.setItem("storedPokemonList", JSON.stringify(storedPokemonList));
+    
+      popup.remove();
+      overlay.remove();
+    });
+
     body.appendChild(overlay);
     popup.appendChild(closeButton);
+    popup.appendChild(popupContent);
+    popup.appendChild(removeGridButton);
     body.appendChild(popup);
   }
 
