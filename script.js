@@ -150,13 +150,18 @@
     const newPokemonImg = new Image();
     const recordedCounter = document.createElement("div");
     const newGridItem = document.createElement("div");
-
+  
     newPokemonImg.src = imageSrc;
     recordedCounter.innerText = count;
-
+  
     newPokemonImg.classList.add("pokemon-box-image");
     recordedCounter.classList.add("pokemon-box-counter");
     newGridItem.classList.add("grid-item");
+
+
+    newPokemonImg.addEventListener("click", function() {
+      popupWindow(recordedCounter.innerText);
+    });
 
     newGridItem.appendChild(newPokemonImg);
     newGridItem.appendChild(recordedCounter);
@@ -165,8 +170,8 @@
     storedPokemonList.push({
       src: newPokemonImg.src,
       count: recordedCounter.innerText
-     });    
-
+    });
+  
     localStorage.setItem("storedPokemonList", JSON.stringify(storedPokemonList));
   }
 
@@ -181,6 +186,11 @@
     
         newPokemonImg.src = storedPokemon[pokemonKey].src;
         recordedCounter.innerText = storedPokemon[pokemonKey].count;
+
+        newPokemonImg.addEventListener("click", function() {
+          popupWindow(storedPokemon[pokemonKey].count);
+          console.log("ok");
+        });
     
         newPokemonImg.classList.add("pokemon-box-image");
         recordedCounter.classList.add("pokemon-box-counter");
@@ -216,6 +226,28 @@
     }
 
     pokemonBox.style.backgroundImage = wallpaperList[currentWallpaper];
+  }
+
+  function popupWindow(count) {
+    const overlay = document.createElement("div");
+    const popup = document.createElement("div");
+    const closeButton = document.createElement("button");
+    const body = document.querySelector("body");
+
+    popup.innerHTML = count;
+
+    overlay.classList.add("overlay");
+    popup.classList.add("popup");
+    closeButton.classList.add("button","close-popup-btn");
+
+    closeButton.addEventListener("click", function() {
+      popup.remove();
+      overlay.remove();
+    });
+
+    body.appendChild(overlay);
+    popup.appendChild(closeButton);
+    body.appendChild(popup);
   }
 
   function addAllEventListeners() {
