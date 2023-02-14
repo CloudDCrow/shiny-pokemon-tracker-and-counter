@@ -46,6 +46,7 @@
   function handleSubmitBtnClick() {
     pokemonName = pokemonNameInput.value.toLowerCase().replace(/\s+|-|'|^0+/g, '');
     pokemonIndex = pokemonList.indexOf(pokemonName);
+    checkForForms();
 
     if (pokemonIndex !== -1) {
       pokemonImage.src = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/shiny/${pokemonIndex + 1}.png`;
@@ -280,5 +281,195 @@
     doneBtn.addEventListener("click", handleDoneBtnClick);
     changeWallpaperBtn.addEventListener("click", handleChangeWallpaperBtnClick);
     pokemonNameInput.addEventListener("keyup", handlePokemonNameInputKeyUp);
+  }
+
+  function checkForForms() {
+
+    //Checks for alolan forms
+    if(pokemonName.includes("alolan")) {
+      if(pokemonName == "alolanrattata") {
+        pokemonIndex = 10090;
+      }
+      if(pokemonName == "alolanraticate") {
+        pokemonIndex = 10091;
+      }
+      if(pokemonName == "alolanraichu") {
+        pokemonIndex = 10099;
+      }
+      if(pokemonName == "alolansandshrew") {
+        pokemonIndex = 10100;
+      }
+      if(pokemonName == "alolansandslash") {
+        pokemonIndex = 10101;
+      }
+      if(pokemonName == "alolanvulpix") {
+        pokemonIndex = 10102;
+      }
+      if(pokemonName == "alolanninetales") {
+        pokemonIndex = 10103;
+      }
+      if(pokemonName == "alolandiglett") {
+        pokemonIndex = 10104;
+      }
+      if(pokemonName == "alolandugtrio") {
+        pokemonIndex = 10105;
+      }
+      if(pokemonName == "alolanmeowth") {
+        pokemonIndex = 10106;
+      }
+      if(pokemonName == "alolanpersian") {
+        pokemonIndex = 10107;
+      }
+      if(pokemonName == "alolangeodude") {
+        pokemonIndex = 10108;
+      }
+      if(pokemonName == "alolangraveler") {
+        pokemonIndex = 10109;
+      }
+      if(pokemonName == "alolangolem") {
+        pokemonIndex = 10110;
+      }
+      if(pokemonName == "alolangrimer") {
+        pokemonIndex = 10111;
+      }
+      if(pokemonName == "alolanmuk") {
+        pokemonIndex = 10112;
+      }
+      if(pokemonName == "alolanexeggutor") {
+        pokemonIndex = 10113;
+      }
+      if(pokemonName == "alolanmarowak") {
+        pokemonIndex = 10114;
+      }
+    }
+
+    //Checks for galarian forms
+    if(pokemonName.includes("galarian")) {
+      if(pokemonName == "galarianmeowth") {
+        pokemonIndex = 10160;
+      }
+      if(pokemonName == "galarianponyta") {
+        pokemonIndex = 10161;
+      }
+      if(pokemonName == "galarianrapidash") {
+        pokemonIndex = 10162;
+      }
+      if(pokemonName == "galarianslowpoke") {
+        pokemonIndex = 10163;
+      }
+      if(pokemonName == "galarianslowbro") {
+        pokemonIndex = 10164;
+      }
+      if(pokemonName == "galarianfarfetchd") {
+        pokemonIndex = 10165;
+      }
+      if(pokemonName == "galarianweezing") {
+        pokemonIndex = 10166;
+      }
+      if(pokemonName == "galarianmrmime") {
+        pokemonIndex = 10167;
+      }
+      if(pokemonName == "galarianarticuno") {
+        pokemonIndex = 10168;
+      }
+      if(pokemonName == "galarianzapdos") {
+        pokemonIndex = 10169;
+      }
+      if(pokemonName == "galarianmoltres") {
+        pokemonIndex = 10170;
+      }
+      if(pokemonName == "galarianslowking") {
+        pokemonIndex = 10171;
+      }
+      if(pokemonName == "galariancorsola") {
+        pokemonIndex = 10172;
+      }
+      if(pokemonName == "galarianzigzagoon") {
+        pokemonIndex = 10173;
+      }
+      if(pokemonName == "galarianlinoone") {
+        pokemonIndex = 10174;
+      }
+      if(pokemonName == "galariandarumaka") {
+        pokemonIndex = 10175;
+      }
+      if(pokemonName == "galariandarmanitan") {
+        pokemonIndex = 10176;
+      }
+      if(pokemonName == "galarianyamask") {
+        pokemonIndex = 10178;
+      }
+      if(pokemonName == "galarianstunfisk") {
+        pokemonIndex = 10179;
+      }
+    }
+
+    //Checks for hisuian forms
+    if(pokemonName.includes("hisuian")) {
+      if(pokemonName == "hisuiangrowlithe") {
+        pokemonIndex = 10228;
+      }
+      if(pokemonName == "hisuianarcanine") {
+        pokemonIndex = 10229;
+      }
+      if(pokemonName == "hisuianvoltorb") {
+        pokemonIndex = 10230;
+      }
+      if(pokemonName == "hisuianelectrode") {
+        pokemonIndex = 10231;
+      }
+      if(pokemonName == "hisuiantyphlosion") {
+        pokemonIndex = 10232;
+      }
+      if(pokemonName == "hisuianqwilfish") {
+        pokemonIndex = 10233;
+      }
+      if(pokemonName == "hisuiansneasel") {
+        pokemonIndex = 10234;
+      }
+      if(pokemonName == "hisuiansamurott") {
+        pokemonIndex = 10235;
+      }
+      if(pokemonName == "hisuianlilligant") {
+        pokemonIndex = 10236;
+      }
+      if(pokemonName == "hisuianzoroa") {
+        pokemonIndex = 10237;
+      }
+      if(pokemonName == "hisuianzoroark") {
+        pokemonIndex = 10238;
+      }
+      if(pokemonName == "hisuianbraviary") {
+        pokemonIndex = 10239;
+      }
+      if(pokemonName == "hisuiansliggoo") {
+        pokemonIndex = 10240;
+      }
+      if(pokemonName == "hisuiangoodra") {
+        pokemonIndex = 10241;
+      }
+      if(pokemonName == "hisuianavalugg") {
+        pokemonIndex = 10242;
+      }
+      if(pokemonName == "hisuiandecidueye") {
+        pokemonIndex = 10243;
+      }
+    }
+
+    //Checks for paldean forms
+    if(pokemonName.includes("paldean")) {
+      if(pokemonName == "paldeantauros") {
+        pokemonIndex = 10249;
+      }
+      if(pokemonName.includes("aqua") & pokemonName.includes("tauros")) {
+        pokemonIndex = 10250;
+      }
+      if(pokemonName.includes("blaze") & pokemonName.includes("tauros")) {
+        pokemonIndex = 10251;
+      }
+      if(pokemonName == "paldeanwooper") {
+        pokemonIndex = 10252;
+      }
+    }
   }
 })();
