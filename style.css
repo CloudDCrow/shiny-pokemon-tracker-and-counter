@@ -34,7 +34,6 @@ body {
   text-align: center;
   font-size: 2vh;
 
-  cursor:pointer;
   transition-duration: 0.4s;
   touch-action: manipulation;
 }
@@ -110,6 +109,7 @@ body {
   width: 6vh;
   max-height: 60px;
   max-width: 60px;
+
   border-radius: 10px;
 }
 
@@ -121,6 +121,7 @@ body {
   left: 0;
   height: 6vh;
   width: 30vh;
+
   border-radius: 10px;
 }
 

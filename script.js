@@ -60,6 +60,11 @@
       localStorage.setItem("count", 0);
     } else {
       pokemonImage.src = 'images/missi.png';
+      
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+      });
     }
   }
 
@@ -469,6 +474,26 @@
       }
       if(pokemonName == "paldeanwooper") {
         pokemonIndex = 10252;
+      }
+    }
+
+    //Checks Deoxys forms
+    if(pokemonName.includes("deoxys")) {
+      if(pokemonName.includes("attack")) {
+        pokemonIndex = 10000;
+      }
+      if(pokemonName.includes("defense")) {
+        pokemonIndex = 10001;
+      }
+      if(pokemonName.includes("speed")) {
+        pokemonIndex = 10002;
+      }
+    }
+
+    //Check Toxtricity
+    if(pokemonName.includes("toxtricity")) {
+      if(pokemonName.includes("low")) {
+        pokemonIndex = 10184;
       }
     }
   }
