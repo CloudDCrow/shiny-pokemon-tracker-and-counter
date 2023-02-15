@@ -1,16 +1,16 @@
 (async function main() {
-  const submitBtn = document.getElementById("submit-btn");
-  const plusOneBtn = document.getElementById("one-counter-btn");
-  const plusFiveBtn = document.getElementById("five-counters-btn");
-  const minusOneBtn = document.getElementById("remove-counter-btn");
-  const doneBtn = document.getElementById("done-btn");
-  const changeWallpaperBtn = document.getElementById("change-wallpaper-btn");
+  const submitBtn = document.querySelector("#submit-btn");
+  const plusOneBtn = document.querySelector("#one-counter-btn");
+  const plusFiveBtn = document.querySelector("#five-counters-btn");
+  const minusOneBtn = document.querySelector("#remove-counter-btn");
+  const doneBtn = document.querySelector("#done-btn");
+  const changeWallpaperBtn = document.querySelector("#change-wallpaper-btn");
   const pokemonBox = document.querySelector("#pokemon-box-div");
-  let boxEncounters = document.getElementsByClassName("pokemon-box-counter");
+  let boxEncounters = document.querySelectorAll(".pokemon-box-counter");
 
-  const pokemonNameInput = document.getElementById("name-input");
-  const pokemonImage = document.getElementById("pokemon-image");
-  const counter = document.getElementById("counter");
+  const pokemonNameInput = document.querySelector("#name-input");
+  const pokemonImage = document.querySelector("#pokemon-image");
+  const counter = document.querySelector("#counter");
 
   let pokemonName = "";
   let pokemonIndex = 0;
@@ -18,7 +18,7 @@
   let currentWallpaper = 0;
   var pokemonList = [];
   var storedPokemonList = [];
-  var wallpaperList = ["linear-gradient(rgba(230, 230, 230, 0.9), rgba(228, 228, 228, 0.9)), url('images/wallpapers/wall.jpg')",
+  const wallpaperList = ["linear-gradient(rgba(230, 230, 230, 0.9), rgba(228, 228, 228, 0.9)), url('images/wallpapers/wall.jpg')",
                         "url('images/wallpapers/clouds.jpg')",
                         "url('images/wallpapers/leaves.jpg')",
                         "linear-gradient(rgba(230, 230, 230, 0.6), rgba(228, 228, 228, 0.6)), url('images/wallpapers/desert.jpg')",
@@ -49,12 +49,12 @@
     checkForForms();
 
     if (pokemonIndex !== -1) {
-      pokemonImage.src = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/shiny/${pokemonIndex + 1}.png`;
+      pokemonImage.src = `https://raw.githubusercontent.com/CloudDCrow/sprites/pokeapi-sprite-contribution/sprites/pokemon/other/official-artwork/shiny/${pokemonIndex + 1}.png`;
       swapToCountMode();
       localStorage.setItem("current-hunt", pokemonImage.src);
       localStorage.setItem("count", 0);
     } else if (pokemonName > 0 && pokemonName <= 1008) {
-      pokemonImage.src = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/shiny/${pokemonName}.png`;
+      pokemonImage.src = `https://raw.githubusercontent.com/CloudDCrow/sprites/pokeapi-sprite-contribution/sprites/pokemon/other/official-artwork/shiny/${pokemonName}.png`;
       swapToCountMode();
       localStorage.setItem("current-hunt", pokemonImage.src);
       localStorage.setItem("count", 0);
@@ -242,7 +242,7 @@
     const body = document.querySelector("body");
     const popupContent = document.createElement("div");
 
-    popupContent.innerHTML = "Congratulations!" + " You got it in <b>" + countInGrid.innerHTML + "</b> encounters.";
+    popupContent.innerHTML = "Congratulations! You got it in <b>" + countInGrid.innerHTML + "</b> encounters.";
     removeGridButton.innerHTML = "Delete"
 
     overlay.classList.add("overlay");
@@ -491,10 +491,8 @@
     }
 
     //Check Toxtricity
-    if(pokemonName.includes("toxtricity")) {
-      if(pokemonName.includes("low")) {
-        pokemonIndex = 10184;
-      }
+    if(pokemonName.includes("toxtricity") & pokemonName.includes("low")) {
+        pokemonIndex = 10183;
     }
   }
 })();
