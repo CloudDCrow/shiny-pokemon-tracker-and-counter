@@ -88,11 +88,8 @@
     localStorage.setItem("count", count);
   }
 
-  function handleDoneBtnClick() {    
-    addPokemonToBox(pokemonImage.src);
-    swapToSearchMode();
-    changeWallpaper();
-    localStorage.setItem("count", 0);
+  function handleDoneBtnClick() {   
+    searchPopupWindow() 
   }
 
   function handleChangeWallpaperBtnClick() {
@@ -166,7 +163,7 @@
 
 
     newPokemonImg.addEventListener("click", function() {
-      popupWindow(newPokemonImg, recordedCounter,newGridItem);
+      boxPopupWindow(newPokemonImg, recordedCounter,newGridItem);
     });
 
     newGridItem.appendChild(newPokemonImg);
@@ -194,7 +191,7 @@
         recordedCounter.innerText = storedPokemon[pokemonKey].count;
 
         newPokemonImg.addEventListener("click", function() {
-          popupWindow(newPokemonImg, recordedCounter, newGridItem);
+          boxPopupWindow(newPokemonImg, recordedCounter, newGridItem);
           console.log("ok");
         });
     
@@ -234,7 +231,7 @@
     pokemonBox.style.backgroundImage = wallpaperList[currentWallpaper];
   }
 
-  function popupWindow(imageInGrid, countInGrid, gridItem) {
+  function boxPopupWindow(imageInGrid, countInGrid, gridItem) {
     const overlay = document.createElement("div");
     const popup = document.createElement("div");
     const closeButton = document.createElement("button");
@@ -275,6 +272,53 @@
     popup.appendChild(closeButton);
     popup.appendChild(popupContent);
     popup.appendChild(removeGridButton);
+    body.appendChild(popup);
+  }
+
+  function searchPopupWindow() {
+    const overlay = document.createElement("div");
+    const popup = document.createElement("div");
+    const closeButton = document.createElement("button");
+    const yesButton = document.createElement("button");
+    const noButton = document.createElement("button");
+    const body = document.querySelector("body");
+    const popupContent = document.createElement("div");
+
+    popupContent.innerHTML = "Did you get the shiny?";
+    yesButton.innerHTML = "Yes!"
+    noButton.innerHTML = "No..."
+
+    overlay.classList.add("overlay");
+    popup.classList.add("popup");
+    popupContent.classList.add("popup-content");
+    closeButton.classList.add("button","close-popup-btn");
+    yesButton.classList.add("button", "yes-btn");
+    noButton.classList.add("button", "no-btn");
+
+    closeButton.addEventListener("click", function() {
+      popup.remove();
+      overlay.remove();
+    });
+
+    yesButton.addEventListener("click", function() {
+      addPokemonToBox(pokemonImage.src);
+      swapToSearchMode();
+      changeWallpaper();
+      localStorage.setItem("count", 0);
+      popup.remove();
+      overlay.remove();
+    });
+
+    noButton.addEventListener("click", function() {
+      popup.remove();
+      overlay.remove();
+    });
+
+    body.appendChild(overlay);
+    popup.appendChild(closeButton);
+    popup.appendChild(popupContent);
+    popup.appendChild(yesButton);
+    popup.appendChild(noButton);
     body.appendChild(popup);
   }
 
@@ -477,7 +521,7 @@
       }
     }
 
-    //Checks Deoxys forms
+    //Checks individual forms
     if(pokemonName.includes("deoxys")) {
       if(pokemonName.includes("attack")) {
         pokemonIndex = 10000;
@@ -490,9 +534,12 @@
       }
     }
 
-    //Check Toxtricity
     if(pokemonName.includes("toxtricity") & pokemonName.includes("low")) {
-        pokemonIndex = 10183;
+      pokemonIndex = 10183;
+    }
+
+    if(pokemonName.includes("basculegion") & pokemonName.includes("f")) {
+      pokemonIndex = 10247;
     }
   }
 })();
