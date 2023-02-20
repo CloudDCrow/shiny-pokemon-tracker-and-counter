@@ -118,11 +118,31 @@ body {
 
   position: absolute;
   bottom: 0;
-  left: 0;
+  left: 50%;
+  transform: translateX(-50%);
   height: 6vh;
   width: 30vh;
 
   border-radius: 10px;
+}
+
+.yes-btn {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  margin-left: 2vw;
+  width: 30vw;
+  max-width: 250px;
+}
+
+.no-btn {
+  background-color: orange;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  margin-right: 2vw;
+  width: 30vw;
+  max-width: 250px;
 }
 
 #change-wallpaper-btn {

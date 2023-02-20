@@ -6,7 +6,7 @@
   const doneBtn = document.querySelector("#done-btn");
   const changeWallpaperBtn = document.querySelector("#change-wallpaper-btn");
   const pokemonBox = document.querySelector("#pokemon-box-div");
-  let boxEncounters = document.querySelectorAll(".pokemon-box-counter");
+  let boxEncounters = document.getElementsByClassName("pokemon-box-counter");
 
   const pokemonNameInput = document.querySelector("#name-input");
   const pokemonImage = document.querySelector("#pokemon-image");
@@ -18,7 +18,7 @@
   let currentWallpaper = 0;
   var pokemonList = [];
   var storedPokemonList = [];
-  const wallpaperList = ["linear-gradient(rgba(230, 230, 230, 0.9), rgba(228, 228, 228, 0.9)), url('images/wallpapers/wall.jpg')",
+  var wallpaperList = ["linear-gradient(rgba(230, 230, 230, 0.9), rgba(228, 228, 228, 0.9)), url('images/wallpapers/wall.jpg')",
                         "url('images/wallpapers/clouds.jpg')",
                         "url('images/wallpapers/leaves.jpg')",
                         "linear-gradient(rgba(230, 230, 230, 0.6), rgba(228, 228, 228, 0.6)), url('images/wallpapers/desert.jpg')",
@@ -227,7 +227,6 @@
         boxEncounters[i].style.color = "black";
      }
     }
-
     pokemonBox.style.backgroundImage = wallpaperList[currentWallpaper];
   }
 
@@ -236,16 +235,19 @@
     const popup = document.createElement("div");
     const closeButton = document.createElement("button");
     const removeGridButton = document.createElement("button");
+    const changeCountButton = document.createElement("button");
     const body = document.querySelector("body");
     const popupContent = document.createElement("div");
 
     popupContent.innerHTML = "Congratulations! You got it in <b>" + countInGrid.innerHTML + "</b> encounters.";
     removeGridButton.innerHTML = "Delete"
+    changeCountButton.innerHTML = "Change Count"
 
     overlay.classList.add("overlay");
     popup.classList.add("popup");
     popupContent.classList.add("popup-content");
     closeButton.classList.add("button","close-popup-btn");
+    changeCountButton.classList.add("button", "change-count-btn");
     removeGridButton.classList.add("button", "remove-grid-btn");
 
     closeButton.addEventListener("click", function() {
@@ -286,7 +288,7 @@
 
     popupContent.innerHTML = "Did you get the shiny?";
     yesButton.innerHTML = "Yes!"
-    noButton.innerHTML = "No..."
+    noButton.innerHTML = "Not yet..."
 
     overlay.classList.add("overlay");
     popup.classList.add("popup");
@@ -333,7 +335,6 @@
   }
 
   function checkForForms() {
-
     //Checks for alolan forms
     if(pokemonName.includes("alolan")) {
       if(pokemonName == "alolanrattata") {
