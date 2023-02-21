@@ -49,6 +49,12 @@ body {
   margin-top: 1vh;
 }
 
+.box-buttons-div {
+  display: flex;
+  margin-top: 7vh;
+  align-items: flex-end;
+}
+
 #submit-btn {
   margin-top: 2vh;
 }
@@ -93,6 +99,25 @@ body {
   margin-top: 1vh;
   height: 8vh;
   width: 35vh;
+}
+
+#trash-btn {
+  background-color: #b80000;
+  background-image: url("images/trashcan.png");
+  background-size: 4vh;
+  background-repeat: no-repeat;
+  background-position: center;
+
+  width: 8vh;
+  margin-left: 6vw;
+}
+
+#change-box-btn {
+  background-color: #00c3ff;
+
+  margin-left: auto;
+  margin-right: 6vw;
+  width: 23vh;
 }
 
 .close-popup-btn {
@@ -204,7 +229,6 @@ body {
   height: 90vh;
   width: 90vw;
   margin: auto;
-  margin-top: 12vh;
 
   background-size: cover;
   background-repeat: no-repeat;
