@@ -4,9 +4,10 @@
   const plusFiveBtn = document.querySelector("#five-counters-btn");
   const minusOneBtn = document.querySelector("#remove-counter-btn");
   const doneBtn = document.querySelector("#done-btn");
+  const trashBtn = document.querySelector("#trash-btn");
   const changeWallpaperBtn = document.querySelector("#change-wallpaper-btn");
   const pokemonBox = document.querySelector("#pokemon-box-div");
-  let boxEncounters = document.getElementsByClassName("pokemon-box-counter");
+  const boxEncounters = document.getElementsByClassName("pokemon-box-counter");
 
   const pokemonNameInput = document.querySelector("#name-input");
   const pokemonImage = document.querySelector("#pokemon-image");
@@ -15,6 +16,7 @@
   let pokemonName = "";
   let pokemonIndex = 0;
   let count = 0;
+  let trash = false;
   let currentWallpaper = 0;
   var pokemonList = [];
   var storedPokemonList = [];
@@ -90,6 +92,18 @@
 
   function handleDoneBtnClick() {   
     searchPopupWindow() 
+  }
+
+  function handleTrashBtnClick() {
+    if(trash == false) {
+      trashBtn.style.backgroundColor = "green";
+      pokemonBox.style.cursor = 'url("images/delete_cursor.png"), auto';
+      trash = true;
+    } else {
+      trashBtn.style.backgroundColor = "red";
+      pokemonBox.style.cursor = 'url("images/pokeball_cursor.png"), auto';
+      trash = false;
+    }
   }
 
   function handleChangeWallpaperBtnClick() {
@@ -239,9 +253,13 @@
     const body = document.querySelector("body");
     const popupContent = document.createElement("div");
 
-    popupContent.innerHTML = "Congratulations! You got it in <b>" + countInGrid.innerHTML + "</b> encounters.";
-    removeGridButton.innerHTML = "Delete"
-    changeCountButton.innerHTML = "Change Count"
+    if(trash) {
+      popupContent.innerHTML = "Do you really wish to delete this hunt?";
+    } else {
+      popupContent.innerHTML = "Congratulations! You got it in <b>" + countInGrid.innerHTML + "</b> encounters."
+    }
+    removeGridButton.innerHTML = "Delete";
+    changeCountButton.innerHTML = "Change Count";
 
     overlay.classList.add("overlay");
     popup.classList.add("popup");
@@ -273,7 +291,9 @@
     body.appendChild(overlay);
     popup.appendChild(closeButton);
     popup.appendChild(popupContent);
-    popup.appendChild(removeGridButton);
+    if(trash) {
+      popup.appendChild(removeGridButton);
+    }
     body.appendChild(popup);
   }
 
@@ -287,8 +307,8 @@
     const popupContent = document.createElement("div");
 
     popupContent.innerHTML = "Did you get the shiny?";
-    yesButton.innerHTML = "Yes!"
-    noButton.innerHTML = "Not yet..."
+    yesButton.innerHTML = "Yes!";
+    noButton.innerHTML = "Not yet...";
 
     overlay.classList.add("overlay");
     popup.classList.add("popup");
@@ -330,6 +350,7 @@
     plusFiveBtn.addEventListener("click", handlePlusFiveBtnBtnClick);
     minusOneBtn.addEventListener("click", handleMinusOneBtnClick);
     doneBtn.addEventListener("click", handleDoneBtnClick);
+    trashBtn.addEventListener("click", handleTrashBtnClick);
     changeWallpaperBtn.addEventListener("click", handleChangeWallpaperBtnClick);
     pokemonNameInput.addEventListener("keyup", handlePokemonNameInputKeyUp);
   }

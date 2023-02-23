@@ -34,6 +34,7 @@ body {
   text-align: center;
   font-size: 2vh;
 
+  cursor: pointer;
   transition-duration: 0.4s;
   touch-action: manipulation;
 }
@@ -102,7 +103,7 @@ body {
 }
 
 #trash-btn {
-  background-color: #b80000;
+  background-color: red;
   background-image: url("images/trashcan.png");
   background-size: 4vh;
   background-repeat: no-repeat;
@@ -238,16 +239,13 @@ body {
   border-style:groove;
   border-color: #7e89a1;
 
+  cursor: url("images/pokeball_cursor.png"), auto;
   text-align: center;
 }
 
 .pokemon-box-image {
   height: 19vh;
   margin-top: 1vh;
-}
-
-.pokemon-box-image:hover {
-  cursor: url("images/pokeball_cursor.png"), auto;
 }
 
 .pokemon-box-counter {
@@ -259,11 +257,11 @@ body {
 .popup {
   display: flex;
   flex-direction: column;
-  background-color: #ffffff;
-  background-image: linear-gradient(rgba(230, 230, 230, 0.9), rgba(228, 228, 228, 0.7)), url("images/background-popup.png");
-  background-size: contain;
+  background-image: url("images/pokeball.png");
+  background-color: #313131;
+  background-size:7vh;
   background-repeat: no-repeat;
-  background-position:bottom;
+  background-position: top left;
 
   position: fixed;
   height: 60%;
@@ -283,6 +281,7 @@ body {
 .popup-content {
   text-align: center;
   font-size: 3vh;
+  color: #ffffff;
   margin: auto;
   padding: 20px;
 }
