@@ -5,6 +5,7 @@
   const minusOneBtn = document.querySelector("#remove-counter-btn");
   const doneBtn = document.querySelector("#done-btn");
   const trashBtn = document.querySelector("#trash-btn");
+  const changeBoxBtn = document.querySelector("#change-box-btn");
   const changeWallpaperBtn = document.querySelector("#change-wallpaper-btn");
   const pokemonBox = document.querySelector("#pokemon-box-div");
   const boxEncounters = document.getElementsByClassName("pokemon-box-counter");
@@ -17,9 +18,11 @@
   let pokemonIndex = 0;
   let count = 0;
   let trash = false;
+  let inProgress = false;
   let currentWallpaper = 0;
   var pokemonList = [];
   var storedPokemonList = [];
+  var storedProgressPokemonList = [];
   var wallpaperList = ["linear-gradient(rgba(230, 230, 230, 0.9), rgba(228, 228, 228, 0.9)), url('images/wallpapers/wall.jpg')",
                         "url('images/wallpapers/clouds.jpg')",
                         "url('images/wallpapers/leaves.jpg')",
@@ -106,6 +109,28 @@
     }
   }
 
+  function handleChangeBoxBtnClick() {
+    if(inProgress == true) {
+      while(pokemonBox.firstChild) {
+        pokemonBox.removeChild(pokemonBox.firstChild);
+      }
+      changeBoxBtn.innerHTML = "Saved Hunts";
+      changeBoxBtn.style.backgroundColor = "#00c3ff";
+      getStoredPokemon();
+      changeWallpaper();
+      inProgress = false;
+    } else {
+      while(pokemonBox.firstChild) {
+        pokemonBox.removeChild(pokemonBox.firstChild);
+      }
+      changeBoxBtn.innerHTML = "Completed Hunts";
+      changeBoxBtn.style.backgroundColor = "#7700ff";
+      getProgressPokemon();
+      changeWallpaper();
+      inProgress = true;
+    }
+  }
+
   function handleChangeWallpaperBtnClick() {
     currentWallpaper += 1;
     if(currentWallpaper > 4) {
@@ -180,9 +205,11 @@
       boxPopupWindow(newPokemonImg, recordedCounter,newGridItem);
     });
 
-    newGridItem.appendChild(newPokemonImg);
-    newGridItem.appendChild(recordedCounter);
-    pokemonBox.appendChild(newGridItem);
+    if(!inProgress) {
+      newGridItem.appendChild(newPokemonImg);
+      newGridItem.appendChild(recordedCounter);
+      pokemonBox.appendChild(newGridItem);
+    }
 
     storedPokemonList.push({
       src: newPokemonImg.src,
@@ -190,6 +217,36 @@
     });
   
     localStorage.setItem("storedPokemonList", JSON.stringify(storedPokemonList));
+  }
+
+  function addProgressPokemonToBox(imageSrc) {
+    const newPokemonImg = new Image();
+    const recordedCounter = document.createElement("div");
+    const newGridItem = document.createElement("div");
+  
+    newPokemonImg.src = imageSrc;
+    recordedCounter.innerText = count;
+  
+    newPokemonImg.classList.add("pokemon-box-image");
+    recordedCounter.classList.add("pokemon-box-counter");
+    newGridItem.classList.add("grid-item");
+
+    newPokemonImg.addEventListener("click", function() {
+      boxPopupWindow(newPokemonImg, recordedCounter,newGridItem);
+    });
+
+    if(inProgress) {
+      newGridItem.appendChild(newPokemonImg);
+      newGridItem.appendChild(recordedCounter);
+      pokemonBox.appendChild(newGridItem);
+    }
+
+    storedProgressPokemonList.push({
+      src: newPokemonImg.src,
+      count: recordedCounter.innerText
+    });
+  
+    localStorage.setItem("storedProgressPokemonList", JSON.stringify(storedProgressPokemonList));
   }
 
   function getStoredPokemon() {
@@ -206,7 +263,6 @@
 
         newPokemonImg.addEventListener("click", function() {
           boxPopupWindow(newPokemonImg, recordedCounter, newGridItem);
-          console.log("ok");
         });
     
         newPokemonImg.classList.add("pokemon-box-image");
@@ -216,13 +272,33 @@
         newGridItem.appendChild(newPokemonImg);
         newGridItem.appendChild(recordedCounter);
         pokemonBox.appendChild(newGridItem);
-  
-        storedPokemonList.push({
-          src: newPokemonImg.src,
-          count: recordedCounter.innerText
-         });    
+      }
+    }
+  }
+
+  function getProgressPokemon() {
+    if(storedProgressPokemonList < localStorage.getItem("storedProgressPokemonList")) {
+      var storedProgressPokemon = JSON.parse(localStorage.getItem("storedProgressPokemonList"));
     
-        localStorage.setItem("storedPokemonList", JSON.stringify(storedPokemonList));
+      for(let pokemonKey in storedProgressPokemon) {
+        const newPokemonImg = new Image();
+        const recordedCounter = document.createElement("div");
+        const newGridItem = document.createElement("div");
+    
+        newPokemonImg.src = storedProgressPokemon[pokemonKey].src;
+        recordedCounter.innerText = storedProgressPokemon[pokemonKey].count;
+
+        newPokemonImg.addEventListener("click", function() {
+          boxPopupWindow(newPokemonImg, recordedCounter, newGridItem);
+        });
+    
+        newPokemonImg.classList.add("pokemon-box-image");
+        recordedCounter.classList.add("pokemon-box-counter");
+        newGridItem.classList.add("grid-item");
+    
+        newGridItem.appendChild(newPokemonImg);
+        newGridItem.appendChild(recordedCounter);
+        pokemonBox.appendChild(newGridItem);
       }
     }
   }
@@ -275,15 +351,23 @@
 
     removeGridButton.addEventListener("click", function() {
       gridItem.remove();
-      console.log(storedPokemonList.length);
     
-      let indexToRemove = storedPokemonList.findIndex(item => {
-        return item.src === imageInGrid.src && item.count === countInGrid.innerText;
-      });
-    
-      storedPokemonList.splice(indexToRemove, 1);
-      localStorage.setItem("storedPokemonList", JSON.stringify(storedPokemonList));
-    
+      if(!inProgress) {
+        let indexToRemove = storedPokemonList.findIndex(item => {
+          return item.src === imageInGrid.src && item.count === countInGrid.innerText;
+        });
+      
+        storedPokemonList.splice(indexToRemove, 1);
+        localStorage.setItem("storedPokemonList", JSON.stringify(storedPokemonList));
+      } else {
+        let indexToRemove = storedProgressPokemonList.findIndex(item => {
+          return item.src === imageInGrid.src && item.count === countInGrid.innerText;
+        });
+      
+        storedProgressPokemonList.splice(indexToRemove, 1);
+        localStorage.setItem("storedProgressPokemonList", JSON.stringify(storedProgressPokemonList));
+      }
+
       popup.remove();
       overlay.remove();
     });
@@ -332,6 +416,10 @@
     });
 
     noButton.addEventListener("click", function() {
+      addProgressPokemonToBox(pokemonImage.src);
+      swapToSearchMode();
+      changeWallpaper();
+      localStorage.setItem("count", 0);
       popup.remove();
       overlay.remove();
     });
@@ -351,6 +439,7 @@
     minusOneBtn.addEventListener("click", handleMinusOneBtnClick);
     doneBtn.addEventListener("click", handleDoneBtnClick);
     trashBtn.addEventListener("click", handleTrashBtnClick);
+    changeBoxBtn.addEventListener("click", handleChangeBoxBtnClick);
     changeWallpaperBtn.addEventListener("click", handleChangeWallpaperBtnClick);
     pokemonNameInput.addEventListener("keyup", handlePokemonNameInputKeyUp);
   }
