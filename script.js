@@ -20,9 +20,9 @@
   let trash = false;
   let inProgress = false;
   let currentWallpaper = 0;
-  var pokemonList = [];
-  var storedPokemonList = [];
-  var storedProgressPokemonList = [];
+  let pokemonList = [];
+  let storedPokemonList = [];
+  let storedProgressPokemonList = [];
   var wallpaperList = ["linear-gradient(rgba(230, 230, 230, 0.9), rgba(228, 228, 228, 0.9)), url('images/wallpapers/wall.jpg')",
                         "url('images/wallpapers/clouds.jpg')",
                         "url('images/wallpapers/leaves.jpg')",
@@ -217,6 +217,7 @@
     });
   
     localStorage.setItem("storedPokemonList", JSON.stringify(storedPokemonList));
+    console.log(localStorage.getItem("storedPokemonList"));
   }
 
   function addProgressPokemonToBox(imageSrc) {
@@ -247,19 +248,20 @@
     });
   
     localStorage.setItem("storedProgressPokemonList", JSON.stringify(storedProgressPokemonList));
+    console.log(localStorage.getItem("storedProgressPokemonList"));
   }
 
   function getStoredPokemon() {
     if(storedPokemonList < localStorage.getItem("storedPokemonList")) {
-      var storedPokemon = JSON.parse(localStorage.getItem("storedPokemonList"));
+      storedPokemonList = JSON.parse(localStorage.getItem("storedPokemonList"));
     
-      for(let pokemonKey in storedPokemon) {
+      for(let pokemonKey in storedPokemonList) {
         const newPokemonImg = new Image();
         const recordedCounter = document.createElement("div");
         const newGridItem = document.createElement("div");
     
-        newPokemonImg.src = storedPokemon[pokemonKey].src;
-        recordedCounter.innerText = storedPokemon[pokemonKey].count;
+        newPokemonImg.src = storedPokemonList[pokemonKey].src;
+        recordedCounter.innerText = storedPokemonList[pokemonKey].count;
 
         newPokemonImg.addEventListener("click", function() {
           boxPopupWindow(newPokemonImg, recordedCounter, newGridItem);
@@ -278,15 +280,15 @@
 
   function getProgressPokemon() {
     if(storedProgressPokemonList < localStorage.getItem("storedProgressPokemonList")) {
-      var storedProgressPokemon = JSON.parse(localStorage.getItem("storedProgressPokemonList"));
-    
-      for(let pokemonKey in storedProgressPokemon) {
+      storedProgressPokemonList = JSON.parse(localStorage.getItem("storedProgressPokemonList"));
+
+      for(let pokemonKey in storedProgressPokemonList) {
         const newPokemonImg = new Image();
         const recordedCounter = document.createElement("div");
         const newGridItem = document.createElement("div");
     
-        newPokemonImg.src = storedProgressPokemon[pokemonKey].src;
-        recordedCounter.innerText = storedProgressPokemon[pokemonKey].count;
+        newPokemonImg.src = storedProgressPokemonList[pokemonKey].src;
+        recordedCounter.innerText = storedProgressPokemonList[pokemonKey].count;
 
         newPokemonImg.addEventListener("click", function() {
           boxPopupWindow(newPokemonImg, recordedCounter, newGridItem);
@@ -325,23 +327,27 @@
     const popup = document.createElement("div");
     const closeButton = document.createElement("button");
     const removeGridButton = document.createElement("button");
-    const changeCountButton = document.createElement("button");
+    const continueHuntButton = document.createElement("button");
     const body = document.querySelector("body");
     const popupContent = document.createElement("div");
 
     if(trash) {
-      popupContent.innerHTML = "Do you really wish to delete this hunt?";
-    } else {
-      popupContent.innerHTML = "Congratulations! You got it in <b>" + countInGrid.innerHTML + "</b> encounters."
+      popupContent.innerHTML = "Do you really wish to <b>delete</b> this hunt?";
+    }
+    if(!trash & !inProgress) {
+      popupContent.innerHTML = `<b>Congratulations!</b><br><br> You got it in <b> ${countInGrid.innerHTML} </b> encounters.`
+    }
+    if(!trash & inProgress) {
+      popupContent.innerHTML = "Do you wish to continue this hunt?"
     }
     removeGridButton.innerHTML = "Delete";
-    changeCountButton.innerHTML = "Change Count";
+    continueHuntButton.innerHTML = "Continue Hunt";
 
     overlay.classList.add("overlay");
     popup.classList.add("popup");
     popupContent.classList.add("popup-content");
     closeButton.classList.add("button","close-popup-btn");
-    changeCountButton.classList.add("button", "change-count-btn");
+    continueHuntButton.classList.add("button", "continue-hunt-btn");
     removeGridButton.classList.add("button", "remove-grid-btn");
 
     closeButton.addEventListener("click", function() {
@@ -372,11 +378,24 @@
       overlay.remove();
     });
 
+    continueHuntButton.addEventListener("click", function() {
+      popup.remove();
+      overlay.remove();
+
+      swapToCountMode();
+      localStorage.setItem("current-hunt", imageInGrid.src);
+      localStorage.setItem("count", countInGrid);
+      console.log(localStorage.getItem("current-hunt"));
+    });
+
     body.appendChild(overlay);
     popup.appendChild(closeButton);
     popup.appendChild(popupContent);
     if(trash) {
       popup.appendChild(removeGridButton);
+    }
+    if(!trash & inProgress) {
+      popup.appendChild(continueHuntButton);
     }
     body.appendChild(popup);
   }
@@ -443,6 +462,7 @@
     changeWallpaperBtn.addEventListener("click", handleChangeWallpaperBtnClick);
     pokemonNameInput.addEventListener("keyup", handlePokemonNameInputKeyUp);
   }
+  console.log(localStorage.getItem("storedPokemonList"));
 
   function checkForForms() {
     //Checks for alolan forms

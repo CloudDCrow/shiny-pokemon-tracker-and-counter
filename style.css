@@ -144,6 +144,21 @@ body {
 
   position: absolute;
   bottom: 0;
+  margin-bottom: 1vh;
+  left: 50%;
+  transform: translateX(-50%);
+  height: 6vh;
+  width: 30vh;
+
+  border-radius: 10px;
+}
+
+.continue-hunt-btn {
+  background-color: #2dd45f;
+
+  position: absolute;
+  bottom: 0;
+  margin-bottom: 1vh;
   left: 50%;
   transform: translateX(-50%);
   height: 6vh;
