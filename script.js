@@ -379,13 +379,24 @@
     });
 
     continueHuntButton.addEventListener("click", function() {
+      gridItem.remove();
       popup.remove();
       overlay.remove();
 
+      pokemonImage.src = imageInGrid.src;
+      counter.innerHTML = countInGrid.innerText;
       swapToCountMode();
+      count = parseInt(counter.innerHTML);
       localStorage.setItem("current-hunt", imageInGrid.src);
-      localStorage.setItem("count", countInGrid);
+      localStorage.setItem("count", parseInt(count));
       console.log(localStorage.getItem("current-hunt"));
+
+      let indexToRemove = storedProgressPokemonList.findIndex(item => {
+        return item.src === imageInGrid.src && item.count === countInGrid.innerText;
+      });
+    
+      storedProgressPokemonList.splice(indexToRemove, 1);
+      localStorage.setItem("storedProgressPokemonList", JSON.stringify(storedProgressPokemonList));
     });
 
     body.appendChild(overlay);
