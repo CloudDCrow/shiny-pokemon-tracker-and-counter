@@ -7,8 +7,9 @@ Counts your shiny hunts and keeps track of your shinies!
 1. Search for the Pokemon you want to hunt by its Pokedex number or name.
 2. Start the hunt.
 3. Increase the count by 1 for every wild encounter or by 5 if you're using the Masuda method. 
-4. Click "Done!" once you finally get the shiny.
-5. Stores your completed hunts in the box below to see all the shinies you've caught so far, complete with images and encounter count.
-6. Get ready for your next shiny hunt and repeat
+4. Click "Done!" once you finally get the shiny, or if you wish to save the hunt for later.
+5. If you wish to continue the hunt at a later time, the hunt will be stored in "Saved hunts".
+6. Stores your completed hunts in the box below to see all the shinies you've caught so far, complete with images and encounter count.
+7. Get ready for your next shiny hunt and repeat.
 
 ![site-screenshot](https://user-images.githubusercontent.com/105298643/218330411-75bc5a08-c927-4b37-a9f9-da3b738135f1.png)
