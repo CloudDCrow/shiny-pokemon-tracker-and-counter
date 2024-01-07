@@ -23,6 +23,7 @@
   let pokemonList = [];
   let storedPokemonList = [];
   let storedProgressPokemonList = [];
+  var unreleasedPokemon = ["ogerpon", "hydrapple", "gougingfire", "ironboulder"];
   var wallpaperList = ["linear-gradient(rgba(230, 230, 230, 0.9), rgba(228, 228, 228, 0.9)), url('images/wallpapers/wall.jpg')",
                         "url('images/wallpapers/clouds.jpg')",
                         "url('images/wallpapers/leaves.jpg')",
@@ -54,12 +55,12 @@
     checkForForms();
 
     if (pokemonIndex !== -1) {
-      pokemonImage.src = `https://raw.githubusercontent.com/CloudDCrow/sprites/pokeapi-sprite-contribution/sprites/pokemon/other/official-artwork/shiny/${pokemonIndex + 1}.png`;
+      pokemonImage.src = `https://raw.githubusercontent.com/CloudDCrow/sprites/sprites-contribution/sprites/pokemon/other/official-artwork/shiny/${pokemonIndex + 1}.png`;
       swapToCountMode();
       localStorage.setItem("current-hunt", pokemonImage.src);
       localStorage.setItem("count", 0);
-    } else if (pokemonName > 0 && pokemonName <= 1008) {
-      pokemonImage.src = `https://raw.githubusercontent.com/CloudDCrow/sprites/pokeapi-sprite-contribution/sprites/pokemon/other/official-artwork/shiny/${pokemonName}.png`;
+    } else if (pokemonName > 0 && pokemonName <= 1016) {
+      pokemonImage.src = `https://raw.githubusercontent.com/CloudDCrow/sprites/sprites-contribution/sprites/pokemon/other/official-artwork/shiny/${pokemonName}.png`;
       swapToCountMode();
       localStorage.setItem("current-hunt", pokemonImage.src);
       localStorage.setItem("count", 0);
@@ -475,6 +476,11 @@
   }
   console.log(localStorage.getItem("storedPokemonList"));
 
+  //Checks names for unreleased pokemon
+  function isPokemonReleased(name) {
+    return unreleasedPokemon.includes(name);
+  }
+
   function checkForForms() {
     //Checks for alolan forms
     if(pokemonName.includes("alolan")) {
@@ -653,10 +659,10 @@
         pokemonIndex = 10249;
       }
       if(pokemonName.includes("aqua") & pokemonName.includes("tauros")) {
-        pokemonIndex = 10250;
+        pokemonIndex = 10251;
       }
       if(pokemonName.includes("blaze") & pokemonName.includes("tauros")) {
-        pokemonIndex = 10251;
+        pokemonIndex = 10250;
       }
       if(pokemonName == "paldeanwooper") {
         pokemonIndex = 10252;
@@ -682,6 +688,12 @@
 
     if(pokemonName.includes("basculegion") & pokemonName.includes("f")) {
       pokemonIndex = 10247;
+    }
+
+    //Checks non-available shinies
+
+    if(isPokemonReleased(pokemonName)) {
+      pokemonIndex= -1;
     }
   }
 })();
