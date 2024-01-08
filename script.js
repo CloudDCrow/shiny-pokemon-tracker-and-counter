@@ -332,24 +332,28 @@
     const body = document.querySelector("body");
     const popupContent = document.createElement("div");
 
-    if(trash) {
-      popupContent.innerHTML = "Do you really wish to <b>delete</b> this hunt?";
-    }
-    if(!trash & !inProgress) {
-      popupContent.innerHTML = `<b>Congratulations!</b><br><br> You got it in <b> ${countInGrid.innerHTML} </b> encounters.`
-    }
-    if(!trash & inProgress) {
-      popupContent.innerHTML = "Do you wish to continue this hunt?"
-    }
-    removeGridButton.innerHTML = "Delete";
-    continueHuntButton.innerHTML = "Continue Hunt";
-
     overlay.classList.add("overlay");
-    popup.classList.add("popup");
     popupContent.classList.add("popup-content");
     closeButton.classList.add("button","close-popup-btn");
     continueHuntButton.classList.add("button", "continue-hunt-btn");
     removeGridButton.classList.add("button", "remove-grid-btn");
+
+    if(trash) {
+      popup.classList.add("popup");
+      popupContent.innerHTML = `Do you really wish to <span style="color: #ffe2e2;">Delete</span> this hunt?`;
+    }
+    if(!trash & !inProgress) {
+      popup.classList.add("popup-complete");
+      popupContent.innerHTML =`<span style="font-size: 1.2em; color: #7bf562;">Well Done!</span><br>
+      <br><span style="color: #343033;">You got it in</span> <b style="font-size: 1.2em; color: #000000;"> ${countInGrid.innerHTML} </b>
+      <span style="color: #343033;">encounters.</span>`
+    }
+    if(!trash & inProgress) {
+      popup.classList.add("popup");
+      popupContent.innerHTML = "Continue hunt?";
+    }
+    removeGridButton.innerHTML = "Delete";
+    continueHuntButton.innerHTML = "Yes";
 
     closeButton.addEventListener("click", function() {
       popup.remove();
