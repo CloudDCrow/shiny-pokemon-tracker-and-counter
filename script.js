@@ -23,7 +23,7 @@
   let pokemonList = [];
   let storedPokemonList = [];
   let storedProgressPokemonList = [];
-  var unreleasedPokemon = ["ogerpon", "hydrapple", "gougingfire", "ironboulder"];
+  var unreleasedPokemon = [];
   var wallpaperList = ["linear-gradient(rgba(230, 230, 230, 0.9), rgba(228, 228, 228, 0.9)), url('images/wallpapers/wall.jpg')",
                         "url('images/wallpapers/clouds.jpg')",
                         "url('images/wallpapers/leaves.jpg')",
@@ -59,7 +59,7 @@
       swapToCountMode();
       localStorage.setItem("current-hunt", pokemonImage.src);
       localStorage.setItem("count", 0);
-    } else if (pokemonName > 0 && pokemonName <= 1016) {
+    } else if (pokemonName > 0 && pokemonName <= 1025) {
       pokemonImage.src = `https://raw.githubusercontent.com/CloudDCrow/sprites/sprites-contribution/sprites/pokemon/other/official-artwork/shiny/${pokemonName}.png`;
       swapToCountMode();
       localStorage.setItem("current-hunt", pokemonImage.src);
@@ -695,7 +695,6 @@
     }
 
     //Checks non-available shinies
-
     if(isPokemonReleased(pokemonName)) {
       pokemonIndex= -1;
     }
