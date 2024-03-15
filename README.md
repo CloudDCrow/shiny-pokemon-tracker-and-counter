@@ -1,8 +1,8 @@
 # Shiny Pokemon Tracker and Counter 🌟
 
-Count your shiny hunts and keep track of your shinies!
+Count your shiny hunts and keep track of your completed and ongoing shinies!
 
-## [Visit the Website](https://clouddcrow.github.io/Shiny-Pokemon-Tracker-And-Counter/)
+## [Visit the Website](https://clouddcrow.github.io/shiny-pokemon-tracker-and-counter/)
 
 ## How It Works
 
