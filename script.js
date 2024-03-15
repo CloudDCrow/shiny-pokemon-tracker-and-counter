@@ -340,7 +340,7 @@
 
     if(trash) {
       popup.classList.add("popup");
-      popupContent.innerHTML = `Do you really wish to <span style="color: #ffe2e2;">Delete</span> this hunt?`;
+      popupContent.innerHTML = `Do you really wish to <span style="color: #f48080;">Delete</span> this hunt?`;
     }
     if(!trash & !inProgress) {
       popup.classList.add("popup-complete");
