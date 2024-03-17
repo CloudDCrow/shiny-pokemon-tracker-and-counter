@@ -342,16 +342,44 @@
       popup.classList.add("popup");
       popupContent.innerHTML = `Do you really wish to <span style="color: #f48080;">Delete</span> this hunt?`;
     }
-    if(!trash & !inProgress) {
+
+    if (!trash && !inProgress) {
       popup.classList.add("popup-complete");
-      popupContent.innerHTML =`<span style="font-size: 1.2em; color: #7bf562;">Well Done!</span><br>
-      <br><span style="color: #343033;">You got it in</span> <b style="font-size: 1.2em; color: #000000;"> ${countInGrid.innerHTML} </b>
-      <span style="color: #343033;">encounters.</span>`
+      let pokemonName = getPokemonName(imageInGrid)
+
+      const descriptionSpan = document.createElement('span');
+      descriptionSpan.style.fontSize = '0.7em';
+      descriptionSpan.style.color = '#000000';
+      descriptionSpan.style.textShadow = `-1px -1px 0 #fff,  
+      1px -1px 0 #fff,
+      -1px  1px 0 #fff,
+      1px  1px 0 #fff`;
+
+      popupContent.innerHTML = `<span style="font-size: 1.2em; color: #fff; text-shadow: 
+      -1px -1px 0 #000,  
+       1px -1px 0 #000,
+      -1px  1px 0 #000,
+       1px  1px 0 #000;">${pokemonName}:</span><br>`;
+  
+      getPokemonInfo(imageInGrid)
+          .then(description => {
+              descriptionSpan.textContent = description;
+  
+              popupContent.appendChild(descriptionSpan);
+          })
+          .catch(error => {
+              console.error('Error fetching Pokemon info:', error);
+              descriptionSpan.textContent = "Not much is yet known about this mysterious Pokemon.";
+  
+              popupContent.appendChild(descriptionSpan);
+          });
     }
+
     if(!trash & inProgress) {
       popup.classList.add("popup");
       popupContent.innerHTML = "Continue hunt?";
     }
+    
     removeGridButton.innerHTML = "Delete";
     continueHuntButton.innerHTML = "Yes";
 
@@ -484,6 +512,35 @@
   function isPokemonReleased(name) {
     return unreleasedPokemon.includes(name);
   }
+
+  function getPokemonName(imageInGrid) {
+    let pokemonURL = imageInGrid.src;
+    const lastNumber = pokemonURL.match(/(\d+)\.png$/);
+    if (lastNumber && lastNumber.length > 1) {
+        return pokemonList[lastNumber[1] - 1].toUpperCase();
+    }
+    else {
+        return "No Data"
+    }
+  }
+
+  async function getPokemonInfo(imageInGrid) {
+    let pokemonURL = imageInGrid.src;
+    const lastNumber = pokemonURL.match(/(\d+)\.png$/);
+    if (lastNumber && lastNumber.length > 1) {
+        let nameOfPokemon = pokemonList[lastNumber[1] - 1];
+        const response = await fetch(`https://pokeapi.co/api/v2/pokemon-species/${nameOfPokemon}`);
+        if (!response.ok) {
+            throw new Error('Not much is yet known about this Pokemon');
+        }
+        const data = await response.json();
+        const flavorText = data.flavor_text_entries.find(entry => entry.language.name === "en").flavor_text.replace(/\f/g, ' ');
+        return flavorText;
+    } else {
+        console.log("No number found before .png");
+        return "";
+    }
+}
 
   function checkForForms() {
     //Checks for alolan forms
