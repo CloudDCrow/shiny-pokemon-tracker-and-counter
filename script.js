@@ -7,6 +7,7 @@
   const trashBtn = document.querySelector("#trash-btn");
   const changeBoxBtn = document.querySelector("#change-box-btn");
   const changeWallpaperBtn = document.querySelector("#change-wallpaper-btn");
+  const changeBackgroundBtn = document.querySelector("#change-background-btn");
   const pokemonBox = document.querySelector("#pokemon-box-div");
   const boxEncounters = document.getElementsByClassName("pokemon-box-counter");
 
@@ -20,6 +21,7 @@
   let trash = false;
   let inProgress = false;
   let currentWallpaper = 0;
+  let currentBackground = 0;
   let pokemonList = [];
   let storedPokemonList = [];
   let storedProgressPokemonList = [];
@@ -29,6 +31,13 @@
                         "url('images/wallpapers/leaves.jpg')",
                         "linear-gradient(rgba(230, 230, 230, 0.6), rgba(228, 228, 228, 0.6)), url('images/wallpapers/desert.jpg')",
                         "url('images/wallpapers/cosmos.jpg')",
+                      ];
+
+  var backgroundList = ["linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.8)), url('images/backgrounds/mountains.jpg')",
+                        "linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.8)), url('images/backgrounds/city.jpg')",
+                        "linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.8)), url('images/backgrounds/leaves.jpg')",
+                        "linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.8)), url('images/backgrounds/desert.jpg')",
+                        "linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.8)), url('images/backgrounds/color.jpg')",
                       ];
 
   if (pokemonList.length == 0) {
@@ -46,6 +55,7 @@
 
   getStoredPokemon();
   changeWallpaper();
+  changeBackground();
   addAllEventListeners();
   
   // Handle Functions
@@ -140,6 +150,16 @@
     localStorage.setItem("wallpaper", currentWallpaper);
 
     changeWallpaper();
+  }
+
+  function handleChangeBackgroundBtnClick() {
+    currentBackground += 1;
+    if(currentBackground > 4) {
+      currentBackground = 0;
+    }
+    localStorage.setItem("background", currentBackground);
+
+    changeBackground();
   }
 
   function handlePokemonNameInputKeyUp(event) {
@@ -323,6 +343,17 @@
     pokemonBox.style.backgroundImage = wallpaperList[currentWallpaper];
   }
 
+  function changeBackground() {
+    if (localStorage.getItem("background") !== null) {
+      currentBackground = parseInt(localStorage.getItem("background"));
+    }
+    document.body.style.backgroundImage = backgroundList[currentBackground];
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    }); 
+  }
+
   function boxPopupWindow(imageInGrid, countInGrid, gridItem) {
     const overlay = document.createElement("div");
     const popup = document.createElement("div");
@@ -504,6 +535,7 @@
     trashBtn.addEventListener("click", handleTrashBtnClick);
     changeBoxBtn.addEventListener("click", handleChangeBoxBtnClick);
     changeWallpaperBtn.addEventListener("click", handleChangeWallpaperBtnClick);
+    changeBackgroundBtn.addEventListener("click", handleChangeBackgroundBtnClick);
     pokemonNameInput.addEventListener("keyup", handlePokemonNameInputKeyUp);
   }
   console.log(localStorage.getItem("storedPokemonList"));
